@@ -17,9 +17,11 @@ if __name__ == '__main__':
     print(sys.argv)
     
     if (len(sys.argv) != 3):
-        print('usage: {} <file_id> <file format>'.format(os.path.basename(sys.argv[0])))
+        print('usage: {} <file_id> <file format>'.format\
+              (os.path.basename(sys.argv[0])))
         sys.exit(1)
     
+    ## get id from command line
     id_by_arg = sys.argv[1]
     file_format = sys.argv[2]
     
@@ -28,7 +30,8 @@ if __name__ == '__main__':
         sys.exit(1)
     try:    
         Entrez.email = 'inesmmsousa@ua.pt'
-        handle = Entrez.efetch(db='nucleotide', rettype=file_format, retmode='text', id=id_by_arg)
+        handle = Entrez.efetch(db='nucleotide', rettype=file_format, \
+                               retmode='text', id=id_by_arg)
     except HTTPErrorProcessor as e:
       
         print('Error: {}'.format(e.msg))
@@ -40,4 +43,3 @@ if __name__ == '__main__':
         SeqIO.write(lst_seq_record, handle_out, file_format)
         
     print('File saved: {}.{}'.format(id_by_arg, file_format))
-    pass
